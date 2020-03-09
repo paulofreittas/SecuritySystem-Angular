@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="title-container">
+    Manter Sistema
+  </div>
+
+  <div class="header-text">
+    Dados do Sistema
+  </div>
+
+  <form [formGroup]="form" fxLayoutAlign="center" novalidate>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Descrição</mat-label>
+        <input matInput formControlName="description" maxlength="100">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Sigla</mat-label>
+        <input matInput formControlName="initials" maxlength="10">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Email de atendimento do sistema</mat-label>
+        <input matInput formControlName="email" maxlength="100">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>URL</mat-label>
+        <input matInput formControlName="url" maxlength="50">
+      </mat-form-field>
+    </div>
+
+    <div class="header-text">
+      Controle do Sistema
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select placeholder="Status" #prop formControlName="status">
+          <mat-option *ngFor="let prop of status" [value]="prop.value">
+            {{prop.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Usuário responsável pela última alteração</mat-label>
+        <input matInput formControlName="respLastUpdate" maxlength="10">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Data da última alteração</mat-label>
+        <input matInput formControlName="updateAt" maxlength="10">
+      </mat-form-field>
+    </div>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Justificativa da última alteração</mat-label>
+        <textarea matInput #lastJus formControlName="justificationForTheLastUpdate"
+          placeholder="Justificativa da última alteração" maxlength="500" rows="4"></textarea>
+        <mat-hint align="end">{{lastJus.value?.length || 0}}/500</mat-hint>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Nova justificativa de alteração</mat-label>
+        <textarea matInput #newJus formControlName="newJustification" placeholder="Nova justificativa de alteração"
+          maxlength="500" rows="4" newJus></textarea>
+        <mat-hint align="end">{{newJus.value?.length || 0}}/500</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="actions-buttons">
+      <button mat-button (click)=back()>
+        <i class="material-icons">arrow_back</i>
+        Voltar
+      </button>
+      <button mat-button (click)=save()>Salvar
+        <i class="material-icons">save</i>
+      </button>
+    </div>
+  </form>
+</div>

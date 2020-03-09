@@ -1,0 +1,95 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.container {
+  margin-top: 15px;
+  width: 980px;
+  background-color: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.title-container {
+  font-weight: bold;
+  font-size: 1.3em;
+  padding: 20px;
+  background-color: #DCDCDC;
+  color: #696969;
+}
+
+.header-text {
+  color: green;
+  padding: 20px;
+  font-weight: bold;
+  text-align: left !important;
+}
+
+form {
+  text-align: center;
+  padding-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  text-align: center;
+}
+
+.mat-hint {
+  margin-top: 10px;
+}
+
+.mat-paginator {
+  margin-bottom: 50px;
+}
+
+table th {
+  text-align: center !important;
+  font-weight: bold !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  color: green;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  color: green;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: green;
+}
+
+.mat-form-field {
+  width: 95%;
+  align-self: center;
+}
+
+.mat-form-field-wrapper {
+  padding: 5px;
+}
+
+.actions-buttons {
+  margin-top: 20px;
+  padding-right: 15px;
+  color: green;
+  text-align: right;
+}

@@ -23,11 +23,11 @@ export class SearchFiltersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.resetPage = false;
     this.page = 0;
     this.initilizeForm();
   }
 
+  // Inicializa os campos do form com suas respectivas validações
   initilizeForm() {
     this.form = this.fb.group({
       description: ['', [Validators.maxLength(100)]],
@@ -37,7 +37,6 @@ export class SearchFiltersComponent implements OnInit {
   }
 
   search(page) {
-    this.resetPage = true;
     this.page = page;
     if (this.form.invalid) {
       this.snackBar.open(
@@ -45,34 +44,44 @@ export class SearchFiltersComponent implements OnInit {
       );
       this.systemService.eventEmit(null);
     } else {
-      if (this.form.value.description != "" || this.form.value.initials || this.form.value.email)
+      // Verifica se o usuário informou algum dos campos para a pesquisa, caso tenha feito adiciona os query params na requisição ao backend
+      // Caso os filtros estejam em branco chama o método de pesquisa sem filtros
+      if (this.form.value.description || this.form.value.initials || this.form.value.email)
         this.systemService.getSystemsWithFilter(this.form.value.description, this.form.value.initials, this.form.value.email, page).subscribe(
           data => {
             this.systemService.eventEmit(data);
-          }, err => {
-            this.systemService.eventEmit(err);
+          }, () => {
+            this.snackBar.open(
+              "Ops .. estamos passando por problemas. Volte em breve.", "Ok", { duration: 5000 }
+            );
           });
       else
         this.systemService.getSystems(page).subscribe(
           data => {
             this.systemService.eventEmit(data);
-          }, err => {
-            this.systemService.eventEmit(err);
+          }, () => {
+            this.snackBar.open(
+              "Ops .. estamos passando por problemas. Volte em breve.", "Ok", { duration: 5000 }
+            );
           });
     }
   }
 
+  // Quando o usário clica na próxima página, atualiza o valor de page e realiza uma nova busca de dados
   pageChange(page) {
     this.page = page;
     this.search(page);
   }
 
+  // Navega o usuário para a tela de cadastro
   create() {
     this.router.navigateByUrl("/create");
   }
 
+  // Limpa os dados form e emite um evento ao serviço de sistema para limpar os dados no componente search-results
   clearForm() {
     this.form.reset();
+    this.page = 0;
     this.systemService.eventEmit(null);
   }
 }

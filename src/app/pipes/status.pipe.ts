@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+// Usado para transformar o 0 em ATIVO e 1 em CANCELADO
 @Pipe({
   name: 'status'
 })

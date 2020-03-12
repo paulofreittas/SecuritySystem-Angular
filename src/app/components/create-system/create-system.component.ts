@@ -26,6 +26,7 @@ export class CreateSystemComponent implements OnInit {
   }
 
   initilizeForm() {
+    // Inicializa os campos do form com suas respectivas validações
     this.form = this.fb.group({
       description: ['', [Validators.required, Validators.maxLength(100)]],
       initials: ['', [Validators.required, Validators.maxLength(10)]],
@@ -35,6 +36,7 @@ export class CreateSystemComponent implements OnInit {
   }
 
   back() {
+    // redireciona o usuário para a raiz
     this.router.navigateByUrl("/");
   }
 
@@ -42,8 +44,10 @@ export class CreateSystemComponent implements OnInit {
     if (this.validForm()) {
       const system: System = this.form.value;
 
+      // Define o status padrão inicial sempre pra 0 - ATIVO
       system.status = 0;
 
+      // Chama o serviço de system para salvar os dados informados e retorna uma mensagem ao usuário no final.
       this.systemService.save(system).subscribe(
         data => {
           if (data?.successMessage) {
@@ -69,6 +73,7 @@ export class CreateSystemComponent implements OnInit {
   }
 
   validForm(): boolean {
+    // Realiza a validação do form, caso não passe, exibe mensagem ao usuário
     if (this.form.invalid) {
       if (this.form.get('email').valid) {
         this.snackBar.open(

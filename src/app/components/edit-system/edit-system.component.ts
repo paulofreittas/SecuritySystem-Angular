@@ -42,11 +42,13 @@ export class EditSystemComponent implements OnInit {
     this.system = null;
     this.id = this.route.snapshot.paramMap.get("id");
 
+    // Recebe o id do sistema cadastrado no banco atráves da url
     if (this.id) {
       this.getData(this.id);
     }
   }
 
+  // Inicializa os campos do form com suas respectivas validações
   initilizeForm() {
     this.form = this.fb.group({
       description: ['', [Validators.required, Validators.maxLength(100)]],
@@ -62,6 +64,7 @@ export class EditSystemComponent implements OnInit {
   }
 
   getData(id: string) {
+    // Solicita os dados referente ao id informado e preenche os campos do form
     this.systemService.getSystemById(id).subscribe(
       data => {
         if (data?.id) {
@@ -80,6 +83,7 @@ export class EditSystemComponent implements OnInit {
     )
   }
 
+  // Realiza a validação dos dados informados pelo usuário
   validForm(): boolean {
     if (this.form.invalid) {
       if (this.form.get('email').valid) {
@@ -106,10 +110,12 @@ export class EditSystemComponent implements OnInit {
     return true;
   }
 
+  // Faz o back padrão do navegador
   back() {
     this.location.back();
   }
 
+  // Envia as informações de alterações para o backend e retorna uma mensagem ao usuário no final
   save() {
     if (this.validForm()) {
       const system: System = this.form.value;
@@ -123,9 +129,11 @@ export class EditSystemComponent implements OnInit {
               data.successMessage, "Ok", { duration: 5000 }
             );
 
+            // Caso sucesso, redireciona a url raiz da aplicação
             this.router.navigateByUrl("/");
           }
           if (data?.errorMessage) {
+            // Caso de erro, exibe mensagem ao usuário
             this.snackBar.open(
               data.errorMessage, "Ok", { duration: 5000 }
             );

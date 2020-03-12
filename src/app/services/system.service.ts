@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from '../../environments/environment';
 import { System } from '../models/system';
 
+// Serviço responsável por solicitar e recuperar os dados do backend
 @Injectable({
   providedIn: 'root'
 })
@@ -12,12 +13,11 @@ export class SystemService {
   private readonly PATH: string = 'system';
 
   searchSystemEvent = new EventEmitter<any>();
-  clearFormEvent = new EventEmitter();
 
   constructor(private http: HttpClient) { }
 
   getSystemsWithFilter(description: string, initials: string, email: string, page: number): Observable<any> {
-    let query = "?page=" + page;
+    let query = "?page=" + (page + 1);
 
     if (description)
       query = query + "&description=" + description;
@@ -45,7 +45,7 @@ export class SystemService {
   }
 
   getSystems(page: number): Observable<any> {
-    let result = this.http.get(env.baseApiUrl + this.PATH + "?page=" + page);
+    let result = this.http.get(env.baseApiUrl + this.PATH + "?page=" + (page + 1));
     return result;
   }
 
